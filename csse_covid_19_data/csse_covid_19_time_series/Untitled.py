@@ -13,7 +13,7 @@ from cycler import cycler
 # In[2]:
 
 
-rr = pd.read_csv('time_series_19-covid-Recovered.csv', sep=',')
+rr = pd.read_csv('time_series_covid19_recovered_global.csv', sep=',')
 rr2 = rr.set_index(['Country/Region','Province/State'])
 rr2.head(3)
 
@@ -23,7 +23,7 @@ rr2.head(3)
 
 # read csv:
 #df = pd.read_csv('time_series_19-covid-Confirmed.csv', sep=';', index_col=0,keep_default_na=False).T
-df = pd.read_csv('time_series_19-covid-Confirmed.csv', sep=',')
+df = pd.read_csv('time_series_covid19_confirmed_global.csv', sep=',')
 # re-set the index (row headers):
 df2 = df.set_index(['Country/Region','Province/State'])
 df2.head(3)
@@ -32,7 +32,7 @@ df2.head(3)
 # In[4]:
 
 
-dfX = df2-rr2
+dfX = df2
 dfX.head(3)
 
 
@@ -124,14 +124,8 @@ df6b = pd.concat([df6,hb],axis=1) #.fillna(value=0)
 # mar/12 data looks faulty especially in Europe:
 df6b.drop(index=pd.to_datetime('2020-03-12'),inplace=True)
 # mar/23 data looks faulty (same as day before):
-df6b.drop(index=pd.to_datetime('2020-03-23'),inplace=True)
-df6b.loc['2020-03-10':'2020-03-15',:]
-
-
-# In[ ]:
-
-
-
+#df6b.drop(index=pd.to_datetime('2020-03-23'),inplace=True)
+#df6b.loc['2020-03-10':'2020-03-15',:]
 
 
 # In[12]:
@@ -180,7 +174,7 @@ default_cycler = (cycler(color=['r', 'g', 'b', 'y']) +
 plt.rc('lines', linewidth=1)
 plt.rc('axes', prop_cycle=default_cycler)
 plotGermany = combined.plot(kind='line',
-                     logy=True,ylim=(0.01,20000),xlim=("2020-02-22","2020-05-01"),
+                     logy=True,ylim=(0.01,100000),xlim=("2020-02-22","2020-05-01"),
                     grid=True)
 plt.show()
 
@@ -196,7 +190,7 @@ default_cycler = (cycler(color=['blue','orange','green','red','purple','brown','
                   cycler(marker=['','','','','','','','','','','','','','','','','','','','']))
 plt.rc('axes', prop_cycle=default_cycler)
 plt.rc('lines', linewidth=2)
-df6b.plot(kind='line',logy=True,ylim=(40,1500),xlim=('2020-02-15','2020-04-15'),grid=True)
+df6b.plot(kind='line',logy=True,ylim=(40,2500),xlim=('2020-02-15','2020-04-15'),grid=True)
 plt.show()
 
 
