@@ -135,9 +135,9 @@ germany = df6b['Germany']
 
 
 # In[13]:
+fact = 90
 
-
-fit = pd.Series(0.3*np.exp(np.arange(0,90,1)*np.log(2.)/2.8))
+fit = pd.Series(fact*0.3*np.exp(np.arange(0,90,1)*np.log(2.)/2.8))
 fit.index = pd.date_range(start="2020-02-22",periods=fit.size)
 combinedTmp = pd.concat([germany,fit],axis=1)
 
@@ -145,7 +145,7 @@ combinedTmp = pd.concat([germany,fit],axis=1)
 # In[14]:
 
 
-fit = pd.Series(25*np.exp(np.arange(0,90,1)*np.log(2.)/6.))
+fit = pd.Series(fact*25*np.exp(np.arange(0,90,1)*np.log(2.)/6.))
 fit.index = pd.date_range(start="2020-03-1",periods=fit.size)
 combinedTmp2 = pd.concat([combinedTmp,fit],axis=1)
 
@@ -158,7 +158,7 @@ combinedTmp2 = pd.concat([combinedTmp,fit],axis=1)
 # stay there for 10 days,
 # but on the other hand, if the curve was flat, then it would still just be the share of "infected" cases that 
 # needs IC. (To cleanly account for the 10 days, we would need to plot _new_ cases.)
-fit = pd.Series(0*np.arange(0,90,1)+17500)
+fit = pd.Series(fact*(0*np.arange(0,90,1)+17500))
 fit.index = pd.date_range(start="2020-03-1",periods=fit.size)
 combined = pd.concat([combinedTmp2,fit],axis=1)
 
@@ -174,7 +174,7 @@ default_cycler = (cycler(color=['r', 'g', 'b', 'y']) +
 plt.rc('lines', linewidth=1)
 plt.rc('axes', prop_cycle=default_cycler)
 plotGermany = combined.plot(kind='line',
-                     logy=True,ylim=(0.01,100000),xlim=("2020-02-22","2020-05-01"),
+                     logy=True,ylim=(1,10000000),xlim=("2020-01-22","2020-05-01"),
                     grid=True)
 plt.show()
 
