@@ -3,7 +3,6 @@
 
 # In[1]:
 
-
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
@@ -12,67 +11,52 @@ from cycler import cycler
 
 # In[2]:
 
-
 rr = pd.read_csv('time_series_covid19_recovered_global.csv', sep=',')
-rr2 = rr.set_index(['Country/Region','Province/State'])
-rr2.head(3)
-
+rr.set_index(['Country/Region','Province/State'],inplace=True)
+rr2 = rr._drop_labels_or_levels(['Lat','Long'])
 
 # In[3]:
-
 
 # read csv:
 #df = pd.read_csv('time_series_19-covid-Confirmed.csv', sep=';', index_col=0,keep_default_na=False).T
 df = pd.read_csv('time_series_covid19_confirmed_global.csv', sep=',')
 # re-set the index (row headers):
-df2 = df.set_index(['Country/Region','Province/State'])
-df2.head(3)
+df.set_index(['Country/Region','Province/State'],inplace=True)
+df2 = df._drop_labels_or_levels(['Lat','Long'])
 
-
-# In[4]:
-
-
-dfX = df2
-dfX.head(3)
-
-
-# In[5]:
-
+# In[*]
 
 #remove spurious last column:
-df2b = dfX.loc[:, ~df2.columns.str.contains('^Unnamed')]
+#df2b = dfX.loc[:, ~df2.columns.str.contains('^Unnamed')]
+
 # transpose:
-df3 = df2b.T
-df3.head(5)
-
-
-# In[6]:
-
-
-# remove Lat/Long rows
-df4 = df3.drop(['Lat','Long'])
-df4.tail(3)
-
+rr3 = rr2.T
+df3 = df2.T
 
 # In[7]:
 
 
 # convert index to dateTime:
-df4.index = pd.DatetimeIndex(df4.index)
-df4.head(3)
+df3.index = pd.DatetimeIndex(df3.index)
+rr3.index = pd.DatetimeIndex(rr3.index)
 
 
 # In[8]:
 
+for jj in range(rr3.index.size):
+    df3.iloc[:,jj] -= rr3.iloc[:,jj]
+
+# In[*]:
+
 
 # extract regions we are interested in:
-df6 = df4.loc[:,[
+df6 = df3.loc[:,[
     ('China','Hubei'),
     ('China','Beijing'),
     ('Germany',''),
     ('Italy',''),
     ('Japan',''),
-    ('France','France'),
+    ('France',np.nan),
 #    ('China','Anhui'),
     ('Switzerland',''),
     ('Singapore',''),
@@ -95,12 +79,12 @@ df6.loc[:,('China','Hubei')] /= 60.
 df6.loc[:,('Japan',np.nan)] /= 126.8
 df6.loc[:,('Korea, South',np.nan)] /= 52.
 df6.loc[:,('Singapore',np.nan)] /= 5.85
-df6.loc[:,('France','France')] /= 67.
+df6.loc[:,('France',np.nan)] /= 67.
 df6.loc[:,('Germany',np.nan)] /= 82.79
 df6.loc[:,('Italy',np.nan)] /= 60.5
 df6.loc[:,('Switzerland',np.nan)] /= 8.57
 df6.loc[:,('Poland',np.nan)] /= 4.
-df6.loc[:,('US','Washington')] /= 7.6
+df6.loc[:,('US',np.nan)] /= 7.6
 #df6.loc[:,("US","King County, WA")] /= 2.2
 df6.loc[:,("Spain",np.nan)] /= 47.
 df6.loc[:,("Austria",np.nan)] /= 8.8
@@ -135,7 +119,7 @@ germany = df6b['Germany']
 
 
 # In[13]:
-fact = 90
+fact = 0.012
 
 fit = pd.Series(fact*0.3*np.exp(np.arange(0,90,1)*np.log(2.)/2.8))
 fit.index = pd.date_range(start="2020-02-22",periods=fit.size)
@@ -145,7 +129,7 @@ combinedTmp = pd.concat([germany,fit],axis=1)
 # In[14]:
 
 
-fit = pd.Series(fact*25*np.exp(np.arange(0,90,1)*np.log(2.)/6.))
+fit = pd.Series(fact*25*np.exp(np.arange(0,90,1)*np.log(2.)/5.8))
 fit.index = pd.date_range(start="2020-03-1",periods=fit.size)
 combinedTmp2 = pd.concat([combinedTmp,fit],axis=1)
 
@@ -174,7 +158,7 @@ default_cycler = (cycler(color=['r', 'g', 'b', 'y']) +
 plt.rc('lines', linewidth=1)
 plt.rc('axes', prop_cycle=default_cycler)
 plotGermany = combined.plot(kind='line',
-                     logy=True,ylim=(1,10000000),xlim=("2020-01-22","2020-05-01"),
+                     logy=True,ylim=(0.001,1000),xlim=("2020-02-22","2020-04-01"),
                     grid=True)
 plt.show()
 
