@@ -84,7 +84,7 @@ df6.loc[:,('Germany',np.nan)] /= 82.79
 df6.loc[:,('Italy',np.nan)] /= 60.5
 df6.loc[:,('Switzerland',np.nan)] /= 8.57
 df6.loc[:,('Poland',np.nan)] /= 4.
-df6.loc[:,('US',np.nan)] /= 7.6
+df6.loc[:,('US',np.nan)] /= 328.
 #df6.loc[:,("US","King County, WA")] /= 2.2
 df6.loc[:,("Spain",np.nan)] /= 47.
 df6.loc[:,("Austria",np.nan)] /= 8.8
@@ -119,7 +119,7 @@ germany = df6b['Germany']
 
 
 # In[13]:
-fact = 0.012
+fact = 1
 
 fit = pd.Series(fact*0.3*np.exp(np.arange(0,90,1)*np.log(2.)/2.8))
 fit.index = pd.date_range(start="2020-02-22",periods=fit.size)
@@ -129,7 +129,7 @@ combinedTmp = pd.concat([germany,fit],axis=1)
 # In[14]:
 
 
-fit = pd.Series(fact*25*np.exp(np.arange(0,90,1)*np.log(2.)/5.8))
+fit = pd.Series(fact*18*np.exp(np.arange(0,90,1)*np.log(2.)/5.2))
 fit.index = pd.date_range(start="2020-03-1",periods=fit.size)
 combinedTmp2 = pd.concat([combinedTmp,fit],axis=1)
 
@@ -158,7 +158,7 @@ default_cycler = (cycler(color=['r', 'g', 'b', 'y']) +
 plt.rc('lines', linewidth=1)
 plt.rc('axes', prop_cycle=default_cycler)
 plotGermany = combined.plot(kind='line',
-                     logy=True,ylim=(0.001,1000),xlim=("2020-01-22","2020-05-01"),
+                     logy=True,ylim=(0.01,20000),xlim=("2020-01-22","2020-05-01"),
                     grid=True)
 plt.show()
 
