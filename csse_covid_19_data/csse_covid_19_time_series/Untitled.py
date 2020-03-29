@@ -181,7 +181,7 @@ plt.show()
 # In[18]:
 
 
-df6b.plot(kind='line',ylim=(0.01,1000),xlim=("2020-01-22","2020-04-01"))
+df6b.plot(kind='line',ylim=(0.01,2000),xlim=("2020-01-22","2020-04-05"))
 plt.show()
 
 
