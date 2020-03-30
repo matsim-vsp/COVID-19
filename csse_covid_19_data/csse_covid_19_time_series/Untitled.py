@@ -129,9 +129,17 @@ combinedTmp = pd.concat([germany,fit],axis=1)
 # In[14]:
 
 
-fit = pd.Series(fact*18*np.exp(np.arange(0,90,1)*np.log(2.)/5.2))
+fit = pd.Series(fact*16*np.exp(np.arange(0,90,1)*np.log(2.)/4.9))
 fit.index = pd.date_range(start="2020-03-1",periods=fit.size)
 combinedTmp2 = pd.concat([combinedTmp,fit],axis=1)
+
+
+# In[*]:
+
+
+fit = pd.Series(fact*105*np.exp(np.arange(0,90,1)*np.log(2.)/10.))
+fit.index = pd.date_range(start="2020-03-1",periods=fit.size)
+combinedTmp3 = pd.concat([combinedTmp2,fit],axis=1)
 
 
 # In[15]:
@@ -144,7 +152,7 @@ combinedTmp2 = pd.concat([combinedTmp,fit],axis=1)
 # needs IC. (To cleanly account for the 10 days, we would need to plot _new_ cases.)
 fit = pd.Series(fact*(0*np.arange(0,90,1)+17500))
 fit.index = pd.date_range(start="2020-03-1",periods=fit.size)
-combined = pd.concat([combinedTmp2,fit],axis=1)
+combined = pd.concat([combinedTmp3,fit],axis=1)
 
 
 # In[16]:
@@ -158,7 +166,7 @@ default_cycler = (cycler(color=['r', 'g', 'b', 'y']) +
 plt.rc('lines', linewidth=1)
 plt.rc('axes', prop_cycle=default_cycler)
 plotGermany = combined.plot(kind='line',
-                     logy=True,ylim=(0.01,20000),xlim=("2020-02-22","2020-05-01"),
+                     logy=True,ylim=(0.1,20000),xlim=("2020-02-22","2020-05-01"),
                     grid=True)
 plt.show()
 
