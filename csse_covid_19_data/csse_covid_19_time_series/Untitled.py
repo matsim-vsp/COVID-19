@@ -129,7 +129,7 @@ combinedTmp = pd.concat([germany,fit],axis=1)
 # In[14]:
 
 
-fit = pd.Series(fact*16*np.exp(np.arange(0,90,1)*np.log(2.)/4.9))
+fit = pd.Series(fact*16.0*np.exp(np.arange(0,90,1)*np.log(2.)/5.))
 fit.index = pd.date_range(start="2020-03-1",periods=fit.size)
 combinedTmp2 = pd.concat([combinedTmp,fit],axis=1)
 
