@@ -64,7 +64,9 @@ df6 = df3.loc[:,[
     ('Poland',''),
     ("US","Washington"),
     ("Spain",""),
-    ("Austria","")
+    ("Austria",""),
+    ("Sweden",""),
+    ("Norway","")
 ]]
 df6.tail(3)
 
@@ -88,6 +90,8 @@ df6.loc[:,('US',np.nan)] /= 328.
 #df6.loc[:,("US","King County, WA")] /= 2.2
 df6.loc[:,("Spain",np.nan)] /= 47.
 df6.loc[:,("Austria",np.nan)] /= 8.8
+df6.loc[:,("Sweden",np.nan)] /= 10.2
+df6.loc[:,("Norway",np.nan)] /= 5.4
 df6.tail(3)
 
 
@@ -137,7 +141,7 @@ combinedTmp2 = pd.concat([combinedTmp,fit],axis=1)
 # In[*]:
 
 
-fit = pd.Series(fact*105*np.exp(np.arange(0,90,1)*np.log(2.)/10.))
+fit = pd.Series(fact*85*np.exp(np.arange(0,90,1)*np.log(2.)/9.))
 fit.index = pd.date_range(start="2020-03-1",periods=fit.size)
 combinedTmp3 = pd.concat([combinedTmp2,fit],axis=1)
 
@@ -182,14 +186,14 @@ default_cycler = (cycler(color=['blue','orange','green','red','purple','brown','
                   cycler(marker=['','','','','','','','','','','','','','','','','','','','']))
 plt.rc('axes', prop_cycle=default_cycler)
 plt.rc('lines', linewidth=2)
-df6b.plot(kind='line',logy=True,ylim=(40,2500),xlim=('2020-02-15','2020-04-15'),grid=True)
+df6b.plot(kind='line',logy=True,ylim=(10,2500),xlim=('2020-02-15','2020-04-15'),grid=True)
 plt.show()
 
 
 # In[18]:
 
 
-df6b.plot(kind='line',ylim=(0.01,2000),xlim=("2020-01-22","2020-04-05"))
+df6b.diff().rolling(6).mean().plot(kind='line',ylim=(0.01,200),xlim=("2020-03-15","2020-04-05"))
 plt.show()
 
 
