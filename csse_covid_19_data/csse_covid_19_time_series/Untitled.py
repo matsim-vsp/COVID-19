@@ -166,7 +166,7 @@ default_cycler = (cycler(color=['r', 'g', 'b', 'y']) +
 plt.rc('lines', linewidth=1)
 plt.rc('axes', prop_cycle=default_cycler)
 plotGermany = combined.plot(kind='line',
-                     logy=True,ylim=(0.1,20000),xlim=("2020-02-22","2020-05-01"),
+                     logy=True,ylim=(0.1,20000),xlim=("2020-02-22","2020-06-01"),
                     grid=True)
 plt.show()
 
