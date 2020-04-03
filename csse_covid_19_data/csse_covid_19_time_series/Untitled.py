@@ -7,7 +7,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 from cycler import cycler
-
+import scipy as sp
 
 # In[2]:
 
@@ -174,6 +174,10 @@ plt.rc('axes', prop_cycle=default_cycler)
 plotGermany = combined.plot(kind='line',
                      logy=True,ylim=(0.1,20000),xlim=("2020-02-22","2020-06-01"),
                     grid=True)
+plt.axvline(pd.to_datetime('2020-03-14'), color='y', linestyle='-', lw=1)
+plt.axvline(pd.to_datetime('2020-03-21'), color='y', linestyle='-', lw=1)
+# Kontaktsperre eigentlich erst am 03-23 (Mo), aber schon ueber das WoE
+# deutliche Zurueckhaltung (Spaziergang mit Chr/Mar im Kforst)
 plt.show()
 
 # In[17]:
@@ -195,7 +199,12 @@ plt.show()
 # In[18]:
 
 
-df6b.diff().rolling(2).mean().plot(kind='line',ylim=(0.01,200),xlim=("2020-03-15","2020-04-05"))
+#df6b.diff().rolling(3,win_type='gaussian').mean(std=3).plot(kind='line',ylim=(0.01,200),xlim=("2020-03-15","2020-04-05"))
+df6b.diff().ewm(alpha=0.2).mean().plot(kind='line',ylim=(0.01,200),xlim=("2020-03-15","2020-04-02"))
+plt.axvline(pd.to_datetime('2020-03-29'), color='b', linestyle='dotted', lw=0.5)
+plt.axvline(pd.to_datetime('2020-03-22'), color='b', linestyle='dotted', lw=0.5)
+plt.axvline(pd.to_datetime('2020-03-15'), color='b', linestyle='dotted', lw=0.5)
+plt.axvline(pd.to_datetime('2020-04-05'), color='b', linestyle='dotted', lw=0.5)
 plt.show()
 
 
@@ -390,9 +399,6 @@ plt.show()
 #
 #
 #
-#
-# # In[ ]:
-#
-#
-#
-#
+# In[ ]:
+
+np.log(2)*44./np.log(59272/5944)
