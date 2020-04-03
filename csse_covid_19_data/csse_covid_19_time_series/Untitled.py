@@ -66,7 +66,8 @@ df6 = df3.loc[:,[
     ("Spain",""),
     ("Austria",""),
     ("Sweden",""),
-    ("Norway","")
+    ("Norway",""),
+    ("South Africa","")
 ]]
 df6.tail(3)
 
@@ -92,6 +93,7 @@ df6.loc[:,("Spain",np.nan)] /= 47.
 df6.loc[:,("Austria",np.nan)] /= 8.8
 df6.loc[:,("Sweden",np.nan)] /= 10.2
 df6.loc[:,("Norway",np.nan)] /= 5.4
+df6.loc[:,("South Africa",np.nan)] /= 56.8
 df6.tail(3)
 
 
@@ -193,7 +195,7 @@ plt.show()
 # In[18]:
 
 
-df6b.diff().rolling(6).mean().plot(kind='line',ylim=(0.01,200),xlim=("2020-03-15","2020-04-05"))
+df6b.diff().rolling(2).mean().plot(kind='line',ylim=(0.01,200),xlim=("2020-03-15","2020-04-05"))
 plt.show()
 
 
