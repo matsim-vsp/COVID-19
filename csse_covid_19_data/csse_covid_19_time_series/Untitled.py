@@ -192,15 +192,15 @@ default_cycler = (cycler(color=['blue','orange','green','red','purple','brown','
                   cycler(marker=['','','','','','','','','','','','','','','','','','','','']))
 plt.rc('axes', prop_cycle=default_cycler)
 plt.rc('lines', linewidth=2)
-df6b.plot(kind='line',logy=True,ylim=(10,2500),xlim=('2020-02-15','2020-04-15'),grid=True)
+df6b.plot(kind='line',logy=True,ylim=(10,3000),xlim=('2020-02-15','2020-04-15'),grid=True)
 plt.show()
 
 
 # In[18]:
 
 
-#df6b.diff().rolling(3,win_type='gaussian').mean(std=3).plot(kind='line',ylim=(0.01,200),xlim=("2020-03-15","2020-04-05"))
-df6b.diff().ewm(alpha=0.2).mean().plot(kind='line',ylim=(0.01,200),xlim=("2020-03-15","2020-04-02"))
+df6b.diff().rolling(5,win_type='gaussian').mean(std=3).plot(kind='line',ylim=(0.01,200),xlim=("2020-03-15","2020-04-05"))
+# df6b.diff().ewm(ignore_na=True,adjust=True,alpha=0.2).mean().plot(kind='line',ylim=(0.01,200),xlim=("2020-03-15","2020-04-15"))
 plt.axvline(pd.to_datetime('2020-03-29'), color='b', linestyle='dotted', lw=0.5)
 plt.axvline(pd.to_datetime('2020-03-22'), color='b', linestyle='dotted', lw=0.5)
 plt.axvline(pd.to_datetime('2020-03-15'), color='b', linestyle='dotted', lw=0.5)
