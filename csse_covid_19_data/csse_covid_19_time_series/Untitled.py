@@ -67,7 +67,8 @@ df6 = df3.loc[:,[
     ("Austria",""),
     ("Sweden",""),
     ("Norway",""),
-    ("South Africa","")
+    ("South Africa",""),
+    ("United Kingdom","")
 ]]
 df6.tail(3)
 
@@ -94,6 +95,7 @@ df6.loc[:,("Austria",np.nan)] /= 8.8
 df6.loc[:,("Sweden",np.nan)] /= 10.2
 df6.loc[:,("Norway",np.nan)] /= 5.4
 df6.loc[:,("South Africa",np.nan)] /= 56.8
+df6.loc[:,("United Kingdom",np.nan)] /= 66.5
 df6.tail(3)
 
 
@@ -199,7 +201,7 @@ plt.show()
 # In[18]:
 
 
-df6b.diff().rolling(5,win_type='gaussian').mean(std=3).plot(kind='line',ylim=(0.01,200),xlim=("2020-03-15","2020-04-05"))
+df6b.diff().rolling(1,win_type='triang').mean().plot(kind='line',ylim=(0.01,200),xlim=("2020-03-15","2020-04-05"))
 # df6b.diff().ewm(ignore_na=True,adjust=True,alpha=0.2).mean().plot(kind='line',ylim=(0.01,200),xlim=("2020-03-15","2020-04-15"))
 plt.axvline(pd.to_datetime('2020-03-29'), color='b', linestyle='dotted', lw=0.5)
 plt.axvline(pd.to_datetime('2020-03-22'), color='b', linestyle='dotted', lw=0.5)
